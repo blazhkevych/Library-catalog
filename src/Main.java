@@ -212,6 +212,15 @@ public class Main {
 
         // TODO: Все выше протестировано и работает.
 
+        // Сохраняем каталог в файл
+        System.out.println("*".repeat(150));
+        System.out.println("Сохраняем каталог в файл");
+        System.out.println("*".repeat(150));
+        System.out.println("Введите путь к файлу для сохранения каталога:");
+        //String path = scanner.nextLine();
+        String path = "./catalog.txt";
+        catalog.saveCatalogToFile(path);
+
 
         System.out.println("````````````````````````````````````````testCatalog End````````````````````````````````````````");
     }

@@ -4,15 +4,35 @@ import LibraryCatalog.CatalogItems.Almanac;
 import LibraryCatalog.CatalogItems.Book;
 import LibraryCatalog.CatalogItems.Newspaper;
 import LibraryCatalog.Interfaces.LibraryItem;
+import LibraryCatalog.SerializationDeserialization.SerializationBridge;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Catalog {
     private List<LibraryItem> items;
+    private SerializationBridge serializationBridge;
 
     public Catalog() {
         this.items = new ArrayList<>();
+        this.serializationBridge = new SerializationBridge() {
+            @Override
+            public byte[] serialize(Catalog catalog) {
+                return new byte[0];
+            }
+
+            @Override
+            public Catalog deserialize(byte[] data) {
+                return null;
+            }
+        };
+    }
+
+    public Catalog(SerializationBridge serializationBridge) {
+        this.serializationBridge = serializationBridge;
     }
 
     public void addBook(Book book) {
@@ -184,5 +204,30 @@ public class Catalog {
         System.out.println("********** Каталог библиотеки **********");
         System.out.println("*".repeat(40));
         System.out.println();
+    }
+
+    // Метод для сохранения каталога в файл
+    public void saveCatalogToFile(String filePath) {
+        byte[] serializedData = serializationBridge.serialize(this);
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            if (serializedData != null) {
+                fos.write(serializedData);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Метод для восстановления каталога из файла
+    public void loadCatalogFromFile(String filePath) {
+        try (FileInputStream fis = new FileInputStream(filePath)) {
+            byte[] data = fis.readAllBytes();
+            Catalog loadedCatalog = serializationBridge.deserialize(data);
+            if (loadedCatalog != null) {
+                this.items = loadedCatalog.items;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
