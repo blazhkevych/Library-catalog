@@ -2,9 +2,10 @@ package LibraryCatalog.CatalogItems;
 
 import LibraryCatalog.Interfaces.LibraryItem;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Almanac implements LibraryItem {
+public class Almanac implements LibraryItem, Serializable {
     private String title;
     private List<Book> books; // Список книг в альманахе
 

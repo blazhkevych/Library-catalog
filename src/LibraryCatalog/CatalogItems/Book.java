@@ -2,7 +2,9 @@ package LibraryCatalog.CatalogItems;
 
 import LibraryCatalog.Interfaces.LibraryItem;
 
-public class Book implements LibraryItem {
+import java.io.Serializable;
+
+public class Book implements LibraryItem, Serializable {
     private String title;
     private String author;
     private String genre;

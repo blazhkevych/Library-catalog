@@ -2,9 +2,10 @@ package LibraryCatalog.CatalogItems;
 
 import LibraryCatalog.Interfaces.LibraryItem;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Newspaper implements LibraryItem {
+public class Newspaper implements LibraryItem, Serializable {
     private String title;
     //private String author; // Поле заглушка для полиморфной работы // Забивать null при создании газеты и не выводить на экран
     private String publicationDate;

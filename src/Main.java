@@ -221,6 +221,16 @@ public class Main {
         String path = "./catalog.txt";
         catalog.saveCatalogToFile(path);
 
+        // Восстанавливаем каталог из файла
+        System.out.println("*".repeat(150));
+        System.out.println("Восстанавливаем каталог из файла");
+        System.out.println("*".repeat(150));
+        System.out.println("Каталог после восстановления из файла:");
+        System.out.println("*".repeat(150));
+        System.out.println();
+        Catalog restoredCatalog = new Catalog();
+        restoredCatalog.loadCatalogFromFile(path);
+        restoredCatalog.displayCatalog();
 
         System.out.println("````````````````````````````````````````testCatalog End````````````````````````````````````````");
     }

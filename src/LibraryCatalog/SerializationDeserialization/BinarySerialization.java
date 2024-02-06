@@ -9,7 +9,7 @@ public class BinarySerialization implements SerializationBridge {
     // Сериализация
     @Override
     public byte[] serialize(Catalog catalog) {
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream(10000);
              ObjectOutputStream oos = new ObjectOutputStream(bos)) {
             oos.writeObject(catalog);
             return bos.toByteArray();

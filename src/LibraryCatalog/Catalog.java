@@ -4,31 +4,23 @@ import LibraryCatalog.CatalogItems.Almanac;
 import LibraryCatalog.CatalogItems.Book;
 import LibraryCatalog.CatalogItems.Newspaper;
 import LibraryCatalog.Interfaces.LibraryItem;
+import LibraryCatalog.SerializationDeserialization.BinarySerialization;
 import LibraryCatalog.SerializationDeserialization.SerializationBridge;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Catalog {
+public class Catalog implements Serializable {
     private List<LibraryItem> items;
-    private SerializationBridge serializationBridge;
+    private transient SerializationBridge serializationBridge;
 
     public Catalog() {
         this.items = new ArrayList<>();
-        this.serializationBridge = new SerializationBridge() {
-            @Override
-            public byte[] serialize(Catalog catalog) {
-                return new byte[0];
-            }
-
-            @Override
-            public Catalog deserialize(byte[] data) {
-                return null;
-            }
-        };
+        this.serializationBridge = new BinarySerialization();
     }
 
     public Catalog(SerializationBridge serializationBridge) {
